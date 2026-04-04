@@ -1,0 +1,21 @@
+name: 'Deploy to AWS S3'
+description: 'Deploy static website using via AWS S3.'
+inputs:
+  bucket:
+    description: 'The Name of the S3 Bucket to Deploy'
+    required: true
+    default: 'gha-custom-action-kode'
+  bucket-region:
+    description: 'The Regions of the S3 Bucket to Deploy'
+    required: false
+    default: 'ap-southeast-2'
+  dist-folder:
+    description: 'The Folder contianing the files to be deployed'
+    required: false
+    default: 'dist'
+outputs:
+  website-url:
+    description: 'The URL of the deployed website'
+runs:
+  using: 'node16'
+  main: 'main.js'

@@ -1,0 +1,14 @@
+{
+  "name": "deploy-s3-javascript",
+  "version": "1.0.0",
+  "description": "Deploy to S3",
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.0"
+  }
+}
