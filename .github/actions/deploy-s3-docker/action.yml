@@ -25,3 +25,4 @@ outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  main: 'deployment.py'
