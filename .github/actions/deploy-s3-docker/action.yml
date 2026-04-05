@@ -1,30 +1,15 @@
 name: 'Deploy to AWS S3'
 description: 'Deploy static website using via AWS S3.'
-
 inputs:
-  aws-access-key-id:
-    description: 'AWS Access Key ID'
-    required: true
-  aws-secret-access-key:
-    description: 'AWS Secret Access Key'
-    required: true
   bucket:
-    description: 'The Name of the S3 Bucket to Deploy'
     required: true
   region:
-    description: 'The Region of the S3 Bucket'
     required: true
-  dis_folder:   # ✅ FIXED
-    description: 'Folder containing files to deploy'
+  dis_folder:
     required: true
-
 outputs:
   website-url:
     description: 'The URL of the deployed website'
-
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
-    AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
