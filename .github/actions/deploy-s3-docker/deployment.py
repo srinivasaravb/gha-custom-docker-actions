@@ -12,10 +12,14 @@ def run():
     dist_folder = os.getenv("INPUT_DIS-FOLDER")
 
     configuration = Config(region_name=bucket_region)
-    configuration = Config(aws_access_key_id=aws_access_key)
-    configuration = Config(aws_secret_access_key=aws_secret_key)
-
-    s3_client = boto3.client('s3', config=configuration)
+    
+    s3_client = boto3.client(
+        's3',
+        region_name=bucket_region,
+        aws_access_key_id=aws_access_key,
+        aws_secret_access_key=aws_secret_key,
+        config=configuration
+    )
 
     for root, subdirs, files in os.walk(dist_folder):
         for file in files:
