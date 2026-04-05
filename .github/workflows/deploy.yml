@@ -87,7 +87,7 @@ jobs:
         with:
           bucket: gha-custom-action-kode
           region: ap-southeast-2
-          dis-folder: ./dist
+          dis_folder: ./dist
 
       - name: Output deployed website URL
         run: |

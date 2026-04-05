@@ -6,18 +6,18 @@ from botocore.config import Config
 
 def run():
     bucket = os.getenv("INPUT_BUCKET")
-    bucket_region = os.getenv("INPUT_REGION")
-    dist_folder = os.getenv("INPUT_DIS_FOLDER")  # ✅ FIXED (underscore)
+    region = os.getenv("INPUT_REGION")
+    dist_folder = os.getenv("INPUT_DIS_FOLDER")  # ✅ correct
 
-    configuration = Config(region_name=bucket_region)
+    if not dist_folder:
+        raise ValueError("dist_folder is missing")
 
-    # ✅ Let boto3 automatically pick credentials from environment
     s3_client = boto3.client(
         "s3",
-        config=configuration
+        config=Config(region_name=region)
     )
 
-    for root, subdirs, files in os.walk(dist_folder):
+    for root, _, files in os.walk(dist_folder):
         for file in files:
             file_path = os.path.join(root, file)
             s3_key = file_path.replace(dist_folder + "/", "")
@@ -31,10 +31,10 @@ def run():
                 }
             )
 
-    website_url = f"http://{bucket}.s3-website-{bucket_region}.amazonaws.com"
+    website_url = f"http://{bucket}.s3-website-{region}.amazonaws.com"
 
-    with open(os.environ["GITHUB_OUTPUT"], "a") as gh_output:
-        print(f"website-url={website_url}", file=gh_output)
+    with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+        print(f"website-url={website_url}", file=fh)
 
 
 if __name__ == "__main__":
